@@ -1,0 +1,11 @@
+PRIORITY:
+- World1
+- player
+- enemies
+
+
+
+BONUS:
+- Add 2 Player feature
+
+- Figure out how to increase screen size (To fullscreen)
