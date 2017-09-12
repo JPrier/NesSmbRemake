@@ -29,7 +29,9 @@ public class GameStateManager {
 	private void loadState(int state) {
 		if(state == MENUSTATE)
 			gameStates[state] = new MenuState(this);
-		else if(state == WORLD1) {}
+		else if(state == WORLD1) {
+			gameStates[state] = new World1(this);
+		}
 	}
 	
 	private void unloadState(int state) {
