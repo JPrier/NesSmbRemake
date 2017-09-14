@@ -22,6 +22,8 @@ public class MenuState extends GameState {
 	
 	private Font font;
 	
+	private TileMap tileMap;
+	
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		
@@ -32,6 +34,14 @@ public class MenuState extends GameState {
 			shroom = ImageIO.read(getClass().getResourceAsStream("/Menu/shroom.png")).getSubimage(0, 0, 8, 8);
 			
 			font = new Font("Arial", Font.PLAIN, 10);
+			
+			//load world tiles
+			tileMap = new TileMap(16); //TODO: recheck the size of the tiles
+			tileMap.loadTiles("/WorldTiles/Tiles.png");
+			tileMap.loadMap("/Maps/M.map"); //TODO: create the map
+			tileMap.setLocation(0, 200); //TODO: is this where the tiles start drawing? if so figure where it should be
+			tileMap.setBounds(tileMap.getWidth() - 1 * tileMap.getTileSize(), tileMap.getHeight() - 2 * tileMap.getTileSize(), 0, 0);
+			tileMap.setTween(1); //movement of the map to the player
 			
 			
 		} catch (Exception e) {
@@ -48,6 +58,9 @@ public class MenuState extends GameState {
 		
 		//draw background
 		back.draw(g);
+		
+		//draw tiles
+		tileMap.draw(g);
 		
 		//draw shroom
 		if(currentChoice == 0) g.drawImage(shroom, shroomx, 135, null);

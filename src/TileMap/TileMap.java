@@ -15,6 +15,8 @@ public class TileMap {
 	// Position
 	private int x;
 	private int y;
+	private int xx;
+	private int yy;
 	
 	// Bounds
 	private int xmin;
@@ -144,6 +146,11 @@ public class TileMap {
 		if(y > ymax) y = ymax;
 	}
 	
+	public void setLocation(int x, int y) {
+		this.xx = x;
+		this.yy = y;
+	}
+	
 	public void update() {}
 	
 	public void draw(Graphics2D g) {
@@ -161,7 +168,7 @@ public class TileMap {
 				int r = rc / numTilesAcross;
 				int c = rc % numTilesAcross;
 				
-				g.drawImage(tiles[r][c].getImage(), (int)x + col * tileSize, (int)y + row * tileSize, null);
+				g.drawImage(tiles[r][c].getImage(), ((int)x + col * tileSize + this.xx), ((int)y + row * tileSize + this.yy), null);
 			}
 		}
 	}

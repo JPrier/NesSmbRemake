@@ -33,7 +33,7 @@ public class World1 extends GameState {
 			tileMap = new TileMap(16); //TODO: recheck the size of the tiles
 			tileMap.loadTiles("/WorldTiles/Tiles.png");
 			tileMap.loadMap("/Maps/W1.map"); //TODO: create the map
-			tileMap.setPosition(50, 0); //TODO: is this where the tiles start drawing? if so figure where it should be
+			tileMap.setLocation(0, 40); //TODO: is this where the tiles start drawing? if so figure where it should be
 			tileMap.setBounds(tileMap.getWidth() - 1 * tileMap.getTileSize(), tileMap.getHeight() - 2 * tileMap.getTileSize(), 0, 0);
 			tileMap.setTween(1); //movement of the map to the player
 			
@@ -43,9 +43,9 @@ public class World1 extends GameState {
 		}
 		
 		//set character start location and load images
-		//player = new Player(tileMap);
-		//player.setPosition(60, 0); //TODO: implement Entity functions
-		//player.init();
+		player = new Player();
+		player.setPosition(0, 0);
+		
 		//set enemy start location and load images
 		populateEnemies();
 	}
@@ -56,7 +56,7 @@ public class World1 extends GameState {
 		
 		tileMap.setPosition(GamePanel.WIDTH / 2, GamePanel.HEIGHT / 2);
 		
-		//player.draw();
+		player.draw();
 		
 		//for loop -- enemy.draw();
 	}
@@ -80,10 +80,28 @@ public class World1 extends GameState {
 		
 		//deal with player movement (lots of various control methods...maybe set this at the beginning)
 		//D & right arrow = right movement
+		if(Keys.isPressed(Keys.D)) {// || Keys.isPressed(Keys.RIGHT)) {
+			player.setRight(true);
+		} else {
+			player.setRight(false);
+		}
 		//A & left arrow= left movement
-		//W & SPACE & up arrow = jump
+		if(Keys.isPressed(Keys.A)){// || Keys.isPressed(Keys.LEFT)) {
+			player.setLeft(true);
+		} else {
+			player.setLeft(false);
+		}
+		//W & up arrow = jump
+		if(Keys.isPressed(Keys.W)){// || Keys.isPressed(Keys.UP)) {
+			player.setUp();
+		}
 		//S & ctrl & c & down arrow = crouch
+		if(Keys.isPressed(Keys.S)){// || Keys.isPressed(Keys.DOWN) || Keys.isPressed(Keys.CTRL) || Keys.isPressed(Keys.C)) {
+			player.setDown(true);
+		} else {
+			player.setDown(false);
+		}
 		
-		//shoot button 
+		//shoot button (SPACE)
 	}
 }
