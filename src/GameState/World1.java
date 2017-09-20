@@ -27,7 +27,7 @@ public class World1 extends GameState {
 		
 		try {
 			//set Background
-			back = new Background("/World1/world1bg.png", 0);
+			back = new Background("/World1/world1bg.png", 1);
 			
 			//load world tiles
 			tileMap = new TileMap(16); //TODO: recheck the size of the tiles
@@ -44,7 +44,7 @@ public class World1 extends GameState {
 		
 		//set character start location and load images
 		player = new Player();
-		player.setPosition(0, 0);
+		player.setPosition(42, 185);
 		
 		//set enemy start location and load images
 		populateEnemies();
@@ -54,9 +54,10 @@ public class World1 extends GameState {
 		
 		handleInput();
 		
-		tileMap.setPosition(GamePanel.WIDTH / 2, GamePanel.HEIGHT / 2);
+		back.setPosition(tileMap.getx(), tileMap.gety());
 		
-		player.draw();
+		tileMap.setPosition(GamePanel.WIDTH / 2 - player.getMapX(), GamePanel.HEIGHT / 2 - player.getMapY());
+		tileMap.update();
 		
 		//for loop -- enemy.draw();
 	}
@@ -67,6 +68,9 @@ public class World1 extends GameState {
 		
 		//draw tileMap
 		tileMap.draw(g);
+		
+		//draw player
+		player.draw(g);
 	}
 	
 	private void populateEnemies() {
@@ -80,28 +84,23 @@ public class World1 extends GameState {
 		
 		//deal with player movement (lots of various control methods...maybe set this at the beginning)
 		//D & right arrow = right movement
-		if(Keys.isPressed(Keys.D)) {// || Keys.isPressed(Keys.RIGHT)) {
-			player.setRight(true);
-		} else {
-			player.setRight(false);
-		}
+		// || Keys.isPressed(Keys.RIGHT)) {
+		player.setRight(Keys.keyState[Keys.D]);
 		//A & left arrow= left movement
-		if(Keys.isPressed(Keys.A)){// || Keys.isPressed(Keys.LEFT)) {
-			player.setLeft(true);
-		} else {
-			player.setLeft(false);
-		}
+		// || Keys.isPressed(Keys.LEFT)) {
+		player.setLeft(Keys.keyState[Keys.A]);
+
 		//W & up arrow = jump
 		if(Keys.isPressed(Keys.W)){// || Keys.isPressed(Keys.UP)) {
 			player.setUp();
 		}
 		//S & ctrl & c & down arrow = crouch
-		if(Keys.isPressed(Keys.S)){// || Keys.isPressed(Keys.DOWN) || Keys.isPressed(Keys.CTRL) || Keys.isPressed(Keys.C)) {
-			player.setDown(true);
-		} else {
-			player.setDown(false);
-		}
+		// || Keys.isPressed(Keys.DOWN) || Keys.isPressed(Keys.CTRL) || Keys.isPressed(Keys.C)) {
+		player.setDown(Keys.keyState[Keys.S]);
 		
 		//shoot button (SPACE)
+		
+		//update player
+		player.update();
 	}
 }

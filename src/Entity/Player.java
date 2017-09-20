@@ -6,10 +6,15 @@ import javax.imageio.ImageIO;
 
 import java.awt.Graphics2D;
 
+import Game.GamePanel;
+
 public class Player extends Entity{
 	
 	private int posX;
 	private int posY;
+	
+	private int mapX;
+	private int mapY;
 	
 	private int moveSpeed = 5;
 	
@@ -33,12 +38,29 @@ public class Player extends Entity{
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		this.posX = 0;
+		this.posY = 0;
 	}
 	public void update() {
-		if(left) posX -= moveSpeed;
-		if(right) posX += moveSpeed;
+		if(left && posX > 0) posX -= moveSpeed;
 		
-		//needs to be adjusted so it stays on jumping until it hits the apex
+		if(right) {
+			System.out.println("Tilem: " + ((mapX / 16) + 1));
+			if(posX < (GamePanel.WIDTH / 2)){
+				posX += moveSpeed;
+			} else if(posX == (int)(GamePanel.WIDTH / 2)){
+				if(mapX == 0) {
+					mapX = posX;
+				}
+				posX += 1;
+			}
+			else {
+				mapX += moveSpeed;
+			}
+		}
+		
+		/*//needs to be adjusted so it stays on jumping until it hits the apex
 		if(jumping) {
 			posY += moveSpeed;
 			falling = true;
@@ -47,12 +69,14 @@ public class Player extends Entity{
 		if(falling) {
 			posY -= moveSpeed;
 			falling = false;
-		}
+		}*/
 		
 	}
 	public void draw(Graphics2D g) {
 		
 		g.drawImage(image, (int)posX, (int)posY, null);
+		
+		super.draw(g);
 	}
 	
 	public void setPosition(int x, int y) {
@@ -77,4 +101,9 @@ public class Player extends Entity{
 	public void setRight(boolean right) {
 		this.right = right;
 	}
+	
+	public int getX() {return posX;}
+	public int getY() {return posY;}
+	public int getMapX() {return mapX;}
+	public int getMapY() {return mapY;}
 }

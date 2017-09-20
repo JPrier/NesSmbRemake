@@ -151,7 +151,9 @@ public class TileMap {
 		this.yy = y;
 	}
 	
-	public void update() {}
+	public void update() {
+		fixBounds();
+	}
 	
 	public void draw(Graphics2D g) {
 		
