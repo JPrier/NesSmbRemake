@@ -1,4 +1,5 @@
-# Super Mario Bros. 
+# Super Mario Bros.
+
 ##Java Remake
 
 Super Mario Bros. Java Remake is a project that involved coding the original Super Mario Bros. in Java without the use of a game engine.
